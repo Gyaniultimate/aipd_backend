@@ -6,7 +6,7 @@ from fileinput import filename
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
-
+from os.path import abspath
 
 
 
@@ -15,7 +15,7 @@ from keras.models import load_model
 import pickle
 
 app = Flask(__name__)
-model = load_model("C:/Users/Gyanendra/Desktop/codeforces/btp/model_parkinsons_v0.h5")
+model = load_model(abspath("./models/model_parkinsons_v0.h5"))
 sc = StandardScaler()
 
 

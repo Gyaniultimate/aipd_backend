@@ -3,7 +3,7 @@ import csv
 
 
 url = 'http://127.0.0.1:5000/predict_api'
-csv="C:/Users/Gyanendra/Desktop/codeforces/btp/GaCo01_0.csv"
+csv="./GaCo01_0.csv"
 
 with open(csv, 'r') as f:
     r = requests.post(url, files={csv: f})
