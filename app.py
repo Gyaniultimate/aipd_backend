@@ -1,7 +1,8 @@
 import numpy as np
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, Response
+from flask_cors import CORS, cross_origin
 import tensorflow as tf
-import keras
+import keras, json
 from fileinput import filename
 import pandas as pd
 import numpy as np
@@ -15,6 +16,9 @@ from keras.models import load_model
 import pickle
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 model = load_model(abspath("./models/model_parkinsons_v0.h5"))
 sc = StandardScaler()
 
@@ -50,6 +54,7 @@ def home():
     return render_template('index.html')
 
 @app.route('/predict',methods=['POST'])
+@cross_origin()
 def predict():
     '''
     For rendering results on HTML GUI
@@ -67,12 +72,59 @@ def predict():
     predict_distribution = pd.Series(predictions).value_counts()
     predictClass = predict_distribution.idxmax()
 
-
+    print("this is predict class : ")
     print(predictClass)
+    finalPrediction = ""
+    if(predictClass == 1):
+        finalPrediction = "Parkinsonian"
+    else:
+        finalPrediction = "Nonparkinsonian"
 
-    return render_template("Acknowledgement.html", name = f.filename)
+
+    #return render_template("acknowledgement.html", name = f.filename)
+    data = [
+        {
+    "id": 1,
+    "name": "CNN",
+    "acc": "100",
+    "res": finalPrediction,
+  },
+  {
+    "id": 2,
+    "name": "CNN",
+    "acc": "100",
+    "res": finalPrediction,
+  },
+  {
+    "id": 3,
+    "name": "CNN",
+    "acc": "100",
+    "res": finalPrediction,
+  },
+  {
+    "id": 4,
+    "name": "CNN",
+    "acc": "100",
+    "res": finalPrediction,
+  },
+  {
+    "id": 5,
+    "name": "CNN",
+    "acc": "100",
+    "res": finalPrediction,
+  },
+  {
+    "id": 6,
+    "name": "CNN",
+    "acc": "100",
+    "res": finalPrediction,
+  }
+];
+    
+    return  jsonify({'data': data})
 
 @app.route('/predict_api',methods=['POST'])
+@cross_origin()
 def predict_api():
     '''
     For direct API calls trought request
@@ -81,4 +133,4 @@ def predict_api():
     print(data.filename)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, threaded=True)
