@@ -59,10 +59,10 @@ def predict():
     '''
     For rendering results on HTML GUI
     '''
-
-
+    print("hello i'm here")
 
     f = request.files['file']
+    print(f)
 
     d_x, label = produceImagesFromFile(file=f, image_height=240)
     prediction = model.predict(d_x)
@@ -76,48 +76,48 @@ def predict():
     print(predictClass)
     finalPrediction = ""
     if(predictClass == 1):
-        finalPrediction = "Parkinsonian"
+        finalPrediction = True
     else:
-        finalPrediction = "Nonparkinsonian"
+        finalPrediction = False
 
 
     #return render_template("acknowledgement.html", name = f.filename)
     data = [
         {
-    "id": 1,
-    "name": "CNN",
-    "acc": "100",
-    "res": finalPrediction,
+    "modelId": 1,
+    "modelName": "CNN",
+    "modelAccuracy": 100,
+    "modelResult": finalPrediction,
   },
   {
-    "id": 2,
-    "name": "CNN",
-    "acc": "100",
-    "res": finalPrediction,
+    "modelId": 2,
+    "modelName": "CNN",
+    "modelAccuracy": 100,
+    "modelResult": finalPrediction,
   },
   {
-    "id": 3,
-    "name": "CNN",
-    "acc": "100",
-    "res": finalPrediction,
+    "modelId": 3,
+    "modelName": "CNN",
+    "modelAccuracy": 100,
+    "modelResult": finalPrediction,
   },
   {
-    "id": 4,
-    "name": "CNN",
-    "acc": "100",
-    "res": finalPrediction,
+    "modelId": 4,
+    "modelName": "CNN",
+    "modelAccuracy": 100,
+    "modelResult": finalPrediction,
   },
   {
-    "id": 5,
-    "name": "CNN",
-    "acc": "100",
-    "res": finalPrediction,
+    "modelId": 5,
+    "modelName": "CNN",
+    "modelAccuracy": 100,
+    "modelResult": finalPrediction,
   },
   {
-    "id": 6,
-    "name": "CNN",
-    "acc": "100",
-    "res": finalPrediction,
+    "modelId": 6,
+    "modelName": "CNN",
+    "modelAccuracy": 100,
+    "modelResult": finalPrediction,
   }
 ];
     
